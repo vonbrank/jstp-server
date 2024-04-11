@@ -1,12 +1,11 @@
 #include "jstp-server.h"
+#include "jstp_server.h"
 #include <vector>
 #include <string>
 
-int main() {
-    jstp_server();
-
-    std::vector<std::string> vec;
-    vec.push_back("test_package");
-
-    jstp_server_print_vector(vec);
+int main()
+{
+    using namespace network;
+    JstpServer server = JstpServer("127.0.0.1", 5001);
+    server.run();
 }
