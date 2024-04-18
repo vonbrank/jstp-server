@@ -99,6 +99,8 @@ namespace network
 
     void TcpServer::closeServer()
     {
+        utils::log("Closing TCP Server...\n");
+
         if (isServerSInitialized)
         {
             close(listening_sokcet);

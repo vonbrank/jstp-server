@@ -82,11 +82,14 @@ namespace network
         using json = nlohmann::json;
         auto jstp_request = json::parse(json_message_string.c_str());
 
-        JstpRouter router;
-
         json jstp_response = defaultResponse();
 
-        router.handleRequest(jstp_request, jstp_response);
+        // utils::log("routers length = " + std::to_string(routers.size()));
+
+        for (auto &router : routers)
+        {
+            router->handleRequest(jstp_request, jstp_response);
+        }
 
         std::string jstp_response_string_payload = jstp_response.dump();
 
@@ -97,7 +100,8 @@ namespace network
         std::string jstp_response_string = ss_jstp_response_string.str();
 
         ss_log.clear();
-        ss_log << "response jstp message: \n" << ss_jstp_response_string.str() << std::endl;
+        ss_log << "response jstp message: \n"
+               << ss_jstp_response_string.str() << std::endl;
         utils::log(ss_log.str());
 
         int bytesWritten = write(handling_socket, jstp_response_string.data(), jstp_response_string.length());
@@ -149,6 +153,11 @@ namespace network
         response["payload"] = nullptr;
 
         return response;
+    }
+
+    void JstpServer::add_router(std::unique_ptr<JstpRouter> router)
+    {
+        routers.push_back(std::move(router));
     }
 
 } // namespace network
