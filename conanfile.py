@@ -20,6 +20,9 @@ class jstp_serverRecipe(ConanFile):
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*"
 
+    def requirements(self):
+        self.requires("nlohmann_json/3.11.3")
+
     def layout(self):
         cmake_layout(self)
 
