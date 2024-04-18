@@ -10,6 +10,8 @@ network::JstpServer *jstpServerInstance = nullptr;
 
 void signalHandler(int signal)
 {
+    utils::log("\n");
+
     if (jstpServerInstance)
     {
         utils::log("Closing running JSTP server...");
@@ -27,4 +29,6 @@ int main()
     JstpServer server = JstpServer("127.0.0.1", 5101);
     jstpServerInstance = &server;
     server.run();
+
+    return 0;
 }
