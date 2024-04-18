@@ -72,7 +72,7 @@ namespace network
         }
 
         std::ostringstream ss;
-        ss << "[server]: listening on http://" << inet_ntoa(socketAddress.sin_addr) << ":" << ntohs(socketAddress.sin_port);
+        ss << "[server]: listening on " << inet_ntoa(socketAddress.sin_addr) << ":" << ntohs(socketAddress.sin_port);
         utils::log(ss.str());
 
         isServerStarted = true;
@@ -84,7 +84,7 @@ namespace network
             if (client_socket < 0)
             {
                 std::ostringstream ss;
-                ss << "[server]: failed to accept incomming connection from http://" << inet_ntoa(socketAddress.sin_addr) << ":" << ntohs(socketAddress.sin_port);
+                ss << "[server]: failed to accept incomming connection from " << inet_ntoa(socketAddress.sin_addr) << ":" << ntohs(socketAddress.sin_port);
                 utils::exitWithError(ss.str());
             }
             else
